@@ -1,26 +1,17 @@
-export default function App() {
-  const data = { email: "customer@email.com", amount: "20000" };
+import Budpay from "./models/Budpay";
 
-  const makePayment = async () => {
-    const res = await fetch(
-      "https://api.budpay.com/api/v2/transaction/initialize",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer 123456`,
-        },
-        body: JSON.stringify(data),
-      }
-    );
-    const response = await res.json();
+type AppProps = Record<string, never>;
 
-    console.log(response);
-  };
+const App: React.FC<AppProps> = () => {
+  const budpay = new Budpay("12345");
 
-  return (
-    <>
-      <button onClick={makePayment}>make payment</button>
-    </>
+  budpay.requestPayment(
+    "olowoniyidan@gmail.com,08153537619",
+    "200",
+    "NGN",
+    "Testing Payment Request"
   );
-}
+
+  return <div></div>;
+};
+export default App;

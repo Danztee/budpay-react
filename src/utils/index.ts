@@ -2,7 +2,7 @@ const BASE_URL = "https://api.budpay.com/api/v2/";
 
 export default async function apiRequest(
   endpoint: string,
-  verification_data: any,
+  payment_data: object,
   secret_key: string
 ) {
   const url = `${BASE_URL}${endpoint}`;
@@ -12,8 +12,9 @@ export default async function apiRequest(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${secret_key}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payment_data),
     });
     const data = await response.json();
     return data;
