@@ -7,13 +7,12 @@ class Budpay {
     this.#secret_key = secret_key;
   }
 
-  #sendRequest = async (endpoint: string, payment_data: any) => {
-    return await apiRequest(
-      //
-      endpoint,
-      payment_data,
-      this.#secret_key
-    );
+  #sendRequest = async (
+    endpoint: string,
+    payment_data: object,
+    url_link?: string
+  ) => {
+    return await apiRequest(endpoint, payment_data, this.#secret_key, url_link);
   };
 
   standardCheckout = async (
@@ -27,19 +26,33 @@ class Budpay {
     return response;
   };
 
-  serverToServer = async () => {
+  cardEncryption = async (card_details: object) => {
+    const endpoint = "test/encryption";
+    const response = this.#sendRequest(endpoint, card_details);
+    return response;
+  };
+
+  serverToServer = async (
+    amount: string,
+    encryptedCard: string,
+    callback: string,
+    currency: string,
+    email: string,
+    pin: string,
+    reference: string
+  ) => {
     const payment_data = {
-      data: {
-        number: "5123450000000008",
-        expiryMonth: "10",
-        expiryYear: "22",
-        cvv: "100",
-        pin: "1234",
-      },
-      reference: "1253627873656276350",
+      amount,
+      card: encryptedCard,
+      callback,
+      currency,
+      email,
+      pin,
+      reference,
     };
+    const url_link = "https://api.budpay.com/api/s2s/";
     const endpoint = "transaction/initialize";
-    const response = this.#sendRequest(endpoint, payment_data);
+    const response = this.#sendRequest(endpoint, payment_data, url_link);
     return response;
   };
 
@@ -47,22 +60,38 @@ class Budpay {
     email: string,
     amount: string,
     currency: string,
+    reference: string,
     name: string
   ) => {
-    const payment_data = { email, amount, currency, name };
+    const url_link = "https://api.budpay.com/api/s2s/";
+    const payment_data = { email, amount, currency, reference, name };
     const endpoint = "banktransfer/initialize";
-    const response = this.#sendRequest(endpoint, payment_data);
+    const response = this.#sendRequest(endpoint, payment_data, url_link);
     return response;
   };
 
-  // VerifyTransaction = async (reference_number: string) => {
-  //   const number = reference_number;
-  //   const endpoint = "transaction/verify/";
-  //   const response = this.#sendRequest(endpoint, number);
-  //   return response;
-  // };
+  serverToServerV2 = async (
+    amount: string,
+    encryptedCard: string,
+    currency: string,
+    email: string,
+    reference: string
+  ) => {
+    const payment_data = {
+      amount,
+      card: encryptedCard,
+      currency,
+      email,
+      reference,
+    };
+    const url_link = "https://api.budpay.com/api/s2s/v2/";
+    const endpoint = "transaction/initialize";
+    const response = this.#sendRequest(endpoint, payment_data, url_link);
+    return response;
+  };
 
   // PAYMENT FEATURES
+  // *not working yet
   requestPayment = async (
     recipient: string,
     amount: string,
