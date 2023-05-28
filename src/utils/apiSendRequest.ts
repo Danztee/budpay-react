@@ -33,6 +33,8 @@ export default async function apiSendRequest(
       body: JSON.stringify(data),
     });
 
+    console.log(response);
+
     const responseData = await response.json();
     return responseData;
   } catch (error) {
