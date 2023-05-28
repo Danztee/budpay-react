@@ -1,6 +1,6 @@
 # BUDPAY REACTJS LIBRARY
 
-BudPay help SMEs and start-ups receive payments in 190+ countries.
+Whether you are building e-commerce applications, software-as-a-service platforms, or digital marketplaces using React, budpay-react helps you seamlessly integrate BudPay payment solution easily into your projects.
 
 This library is fully written in typescript.
 

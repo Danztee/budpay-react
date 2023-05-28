@@ -1,8 +1,27 @@
 {
-  "name": "budpay-library",
-  "private": true,
+  "name": "budpay-react",
   "version": "0.0.0",
   "type": "module",
+  "description": "Whether you are building e-commerce applications, software-as-a-service platforms, or digital marketplaces using React, budpay-react helps you seamlessly integrate BudPay payment solution easily into your projects.",
+  "keywords": [
+    "payments"
+  ],
+  "author": "Olowoniyi Daniel <olowoniyidaniel@gmail.com>",
+  "homepage": "https://github.com/Danztee/budpay-react#readme",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Danztee/budpay-react.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
