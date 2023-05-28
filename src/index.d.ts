@@ -455,4 +455,40 @@ class Budpay {
     plan_id: string,
     reference: string
   ): Promise;
+
+  /**
+   * Electricity Providers - Getting all available Electricity Providers.
+   * @returns {Promise<any>} - A Promise that resolves to the response from the API.
+   */
+  async electricityProviders(): Promise;
+
+  /**
+   * Electricity Validate - To perform a Electricity Meter Number Validation.
+   * @param {string} provider - please use the provider name of the provider as returned in Electricity providers (e.g. for IBEDC).
+   * @param {string} type - meter type (Prepaid or Postpaid).
+   * @param {string} number - Customer's/beneficiary's Meter number to subscribe on.
+   * @returns {Promise<any>} - A Promise that resolves to the response from the API.
+   */
+  async electricityValidate(
+    provider: string,
+    type: string,
+    number: string
+  ): Promise;
+
+  /**
+   * Electricity Recharge - To Initiate a Electricity Recharge Payment.
+   * @param {string} provider - please use the provider name of the provider as returned in Electricity providers (e.g. for IBEDC).
+   * @param {string} number - Customer's/beneficiary's Meter number to subscribe on.
+   * @param {string} type - meter type (Prepaid or Postpaid).
+   * @param {string} amount - amount to recharge.
+   * @param {string} reference -	If specified, the field should be a unique identifier (in lowercase) for the object. Only -,_ and alphanumeric characters allowed.
+   * @returns {Promise<any>} - A Promise that resolves to the response from the API.
+   */
+  async electricityRecharge(
+    provider: string,
+    number: string,
+    type: string,
+    amount: string,
+    reference: string
+  ): Promise;
 }

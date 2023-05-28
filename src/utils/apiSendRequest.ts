@@ -2,7 +2,7 @@ const BASE_URL = "https://api.budpay.com/api/v2/";
 
 export default async function apiSendRequest(
   endpoint: string,
-  _data: object | string,
+  data: object | string,
   secret_key: string,
   url_link?: string
 ) {
@@ -14,6 +14,7 @@ export default async function apiSendRequest(
     "airtime/topup",
     "internet/data",
     "tv/pay",
+    "electricity/recharge",
   ];
 
   try {
@@ -29,34 +30,13 @@ export default async function apiSendRequest(
     const response = await fetch(url, {
       method: "POST",
       headers,
-      body: JSON.stringify(_data),
+      body: JSON.stringify(data),
     });
 
-    const data = await response.json();
-    return data;
+    const responseData = await response.json();
+    return responseData;
   } catch (error) {
-    return `${endpoint} Error: ${error}`;
-  }
-}
-
-export async function apiGetRequest(
-  endpoint: string,
-  secret_key: string,
-  url_link?: string
-) {
-  const url = url_link ? `${url_link}${endpoint}` : `${BASE_URL}${endpoint}`;
-
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${secret_key}`,
-      },
-    });
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    return `${endpoint} Error: ${error}`;
+    console.error(`${endpoint} Error:`, error);
+    throw new Error(`Error occurred while making a request to ${endpoint}`);
   }
 }
