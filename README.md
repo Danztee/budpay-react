@@ -82,7 +82,14 @@ export default App;
 
 - `standardCheckout(email, amount, currency, reference, callback)`
   &nbsp;
-- `cardEncryption(card_details)`
+- `cardEncryption(data: {
+  number: string;
+  expiryMonth: string;
+  expiryYear: string;
+  cvv: string;
+  pin?: string;
+},
+reference: string)`
   &nbsp;
 - `serverToServer(amount, encryptedCard, callback, currency, email, reference, pin)`
   &nbsp;
