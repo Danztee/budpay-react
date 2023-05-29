@@ -516,3 +516,13 @@ export default App;
   &nbsp;
 - `electricityRecharge()`
   &nbsp;
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+##### Author: Olowoniyi Daniel
+
+##### Twitter - [link](https://twitter.com/iamdanztee)
+
+##### Github - [link](https://github.com/Danztee)
