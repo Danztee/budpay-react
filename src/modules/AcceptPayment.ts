@@ -16,8 +16,8 @@ class AcceptPayment {
     return await apiSendRequest(endpoint, data, this.#secret_key, url_link);
   };
 
-  #sendGetRequest = async (endpoint: string, url_link?: string) => {
-    return await apiGetRequest(endpoint, this.#secret_key, url_link);
+  #sendGetRequest = async (endpoint: string) => {
+    return await apiGetRequest(endpoint, this.#secret_key);
   };
 
   /**
@@ -182,12 +182,11 @@ class AcceptPayment {
 
   /**
    * Fetch Single Transaction by query.
-   * @deprecated
    * @param {string} search - reference / sessionid / account number/ card pan.
    * @returns {Promise<any>} - A Promise that resolves to the response from the API.
    */
   queryTransaction = async (search: string) => {
-    const endpoint = `transaction_query/:${search}`;
+    const endpoint = `transaction_query/${search}`;
     const response = this.#sendGetRequest(endpoint);
     return response;
   };

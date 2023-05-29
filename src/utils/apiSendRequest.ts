@@ -9,6 +9,7 @@ export default async function apiSendRequest(
   const url = url_link ? `${url_link}${endpoint}` : `${BASE_URL}${endpoint}`;
 
   const endpointsRequiringEncryption = [
+    "transaction/initialize",
     "bank_transfer",
     "bulk_bank_transfer",
     "airtime/topup",
