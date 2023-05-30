@@ -12,11 +12,12 @@ class BudPay {
   identityVerification: IdentityVerification;
 
   /**
-  Create an instance of BudPay.
-  @param {string}  secret_key -  your secret key.
-  @param {string}  signature -  your HMAC Signature 
-  */
-  constructor(config: Config) {
+   * Create an instance of BudPay.
+   * @param {Object} config - Configuration object.
+   * @param {string} secret_key - Your secret key.
+   * @param {string} signature - Your HMAC Signature.
+   */
+  constructor(config: { secret_key: string; signature: string }) {
     this.acceptPayment = new AcceptPayment(config);
     this.paymentFeatures = new PaymentFeatures(config);
     this.payouts = new Payouts(config);

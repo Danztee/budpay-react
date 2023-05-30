@@ -1,6 +1,6 @@
 {
   "name": "budpay-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Whether you are building e-commerce applications, software-as-a-service platforms, or digital marketplaces using React, budpay-react helps you seamlessly integrate BudPay payment solution easily into your projects.",
   "keywords": [
     "payments"

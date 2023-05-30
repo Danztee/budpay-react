@@ -1,6 +1,12 @@
 # Changelog
 
-## [0.0.1] - 2023-05-30
+## [0.1.1] - 2023-05-30
+
+### Added
+
+- changed the configuration to an object that requires a secret key and a signature.
+
+## [0.1.0] - 2023-05-30
 
 ### Added
 

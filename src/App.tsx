@@ -2,12 +2,13 @@ import BudPay from ".";
 
 const App = () => {
   const config = {
-    secret_key: "sk_test_3xd7ybrhumna6sn9kumn3eqljal6lghshb3uiu9",
+    secret_key: "your-secret-key",
     signature: "signature from config",
   };
   const budPay = new BudPay(config);
 
-  const { billsPayment } = budPay;
+  const { billsPayment, acceptPayment } = budPay;
+  acceptPayment.fetchAllTransactions().then((res) => console.log(res));
 
   billsPayment
     .airtimeTopUp("MTN", "08011111111", "100", "243rkei3wqqqw")
