@@ -1,3 +1,4 @@
+import { Config } from "../types";
 import apiGetRequest from "../utils/apiGetRequest";
 import apiSendRequest from "../utils/apiSendRequest";
 

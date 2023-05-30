@@ -1,3 +1,4 @@
+import { Config } from "../types";
 import apiSendRequest from "../utils/apiSendRequest";
 
 class IdentityVerification {

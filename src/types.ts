@@ -1,4 +1,4 @@
-type Config = {
+export type Config = {
   secret_key: string;
   signature: string;
 };
