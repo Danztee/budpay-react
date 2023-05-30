@@ -1,7 +1,7 @@
 import BudPay from ".";
 
 const App = () => {
-  const budPay = new BudPay("sk_test_3xd7ybrhumna6sn9kumn3eqljal6lghshb3uiu9");
+  const budPay = new BudPay("your-key");
 
   const { acceptPayment } = budPay;
   acceptPayment

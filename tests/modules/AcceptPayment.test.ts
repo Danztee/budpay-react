@@ -10,7 +10,7 @@ describe("AcceptPayment", () => {
   const mockSendRequest = apiSendRequest as jest.Mock;
   const mockGetRequest = apiGetRequest as jest.Mock;
 
-  const secret_key = "sk_test_3xd7ybrhumna6sn9kumn3eqljal6lghshb3uiu9";
+  const secret_key = "example-secret-key";
 
   beforeEach(() => {
     acceptPayment = new AcceptPayment(secret_key);
