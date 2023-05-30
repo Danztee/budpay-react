@@ -3,13 +3,21 @@ import apiSendRequest from "../utils/apiSendRequest";
 
 class Payouts {
   #secret_key: string;
+  #signature: string;
 
-  constructor(secret_key: string) {
-    this.#secret_key = secret_key;
+  constructor(config: Config) {
+    this.#secret_key = config.secret_key;
+    this.#signature = config.signature;
   }
 
   #sendRequest = async (endpoint: string, data: object | string) => {
-    return await apiSendRequest(endpoint, data, this.#secret_key);
+    if (!this.#signature) return "please pass in your HMAC Signature";
+    return await apiSendRequest(
+      endpoint,
+      data,
+      this.#secret_key,
+      this.#signature
+    );
   };
 
   #sendGetRequest = async (endpoint: string) => {

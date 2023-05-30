@@ -6,11 +6,15 @@ import PaymentFeatures from "./../src/modules/PaymentFeatures";
 import Payouts from "./../src/modules/Payouts";
 
 describe("BudPay", () => {
-  const secretKey = "example-secret-key";
+  const config = {
+    secret_key: "your-secret-key",
+    signature: "your-HMAC-Signature",
+  };
+
   let budPay: BudPay;
 
   beforeEach(() => {
-    budPay = new BudPay(secretKey);
+    budPay = new BudPay(config);
   });
 
   it("should create an instance of AcceptPayment module", () => {

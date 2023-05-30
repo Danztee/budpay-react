@@ -4,6 +4,7 @@ export default async function apiSendRequest(
   endpoint: string,
   data: object | string,
   secret_key: string,
+  signature: string,
   url_link?: string
 ) {
   const url = url_link ? `${url_link}${endpoint}` : `${BASE_URL}${endpoint}`;
@@ -25,7 +26,7 @@ export default async function apiSendRequest(
     };
 
     if (endpointsRequiringEncryption.includes(endpoint)) {
-      headers.Encryption = "Signature_HMAC-SHA-512";
+      headers.Encryption = signature;
     }
 
     const response = await fetch(url, {
@@ -33,8 +34,6 @@ export default async function apiSendRequest(
       headers,
       body: JSON.stringify(data),
     });
-
-    console.log(response);
 
     const responseData = await response.json();
     return responseData;

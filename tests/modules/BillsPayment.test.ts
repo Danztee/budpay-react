@@ -2,18 +2,21 @@ import BillsPayment from "../../src/modules/BillsPayment";
 import apiGetRequest from "../../src/utils/apiGetRequest";
 import apiSendRequest from "../../src/utils/apiSendRequest";
 
-jest.mock("../src/utils/apiGetRequest");
-jest.mock("../src/utils/apiSendRequest");
+jest.mock("../../src/utils/apiGetRequest");
+jest.mock("../../src/utils/apiSendRequest");
 
 describe("BillsPayment", () => {
   let billsPayment: BillsPayment;
   const mockSendRequest = apiSendRequest as jest.Mock;
   const mockGetRequest = apiGetRequest as jest.Mock;
 
-  const secret_key = "example-secret-key";
+  const config = {
+    secret_key: "your-secret-key",
+    signature: "your-HMAC-Signature",
+  };
 
   beforeEach(() => {
-    billsPayment = new BillsPayment(secret_key);
+    billsPayment = new BillsPayment(config);
   });
 
   afterEach(() => {
@@ -27,7 +30,10 @@ describe("BillsPayment", () => {
 
       await billsPayment.airtimeProviders();
 
-      expect(apiGetRequest).toHaveBeenCalledWith(expectedEndpoint, secret_key);
+      expect(apiGetRequest).toHaveBeenCalledWith(
+        expectedEndpoint,
+        config.secret_key
+      );
     });
   });
 
@@ -51,7 +57,8 @@ describe("BillsPayment", () => {
       expect(apiSendRequest).toHaveBeenCalledWith(
         expectedEndpoint,
         expectedData,
-        secret_key
+        config.secret_key,
+        config.signature
       );
     });
   });
@@ -67,7 +74,7 @@ describe("BillsPayment", () => {
       const result = await billsPayment.internetProviders();
 
       expect(result).toHaveProperty("success", true);
-      expect(apiGetRequest).toHaveBeenCalledWith("internet", secret_key);
+      expect(apiGetRequest).toHaveBeenCalledWith("internet", config.secret_key);
     });
   });
 
@@ -77,12 +84,12 @@ describe("BillsPayment", () => {
       const endpoint = `internet/plans/${provider}`;
 
       await billsPayment.internetDataPlans(provider);
-      expect(apiGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(apiGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
     });
   });
 
   describe("internetDataPurchase", () => {
-    it("should call apiGetRequest with correct endpoint", async () => {
+    it("should call apiSendRequest with correct endpoint", async () => {
       const provider = "MTN";
       const number = "07036218209";
       const plan_id = "238";
@@ -100,7 +107,12 @@ describe("BillsPayment", () => {
         reference
       );
       expect(result).toHaveProperty("success", true);
-      expect(apiSendRequest).toHaveBeenCalledWith(endpoint, data, secret_key);
+      expect(apiSendRequest).toHaveBeenCalledWith(
+        endpoint,
+        data,
+        config.secret_key,
+        config.signature
+      );
     });
   });
 
@@ -108,7 +120,7 @@ describe("BillsPayment", () => {
     it("should call apiGetRequest with correct endpoint", async () => {
       const endpoint = "tv";
       await billsPayment.tvProviders();
-      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
     });
   });
 
@@ -171,7 +183,7 @@ describe("BillsPayment", () => {
 
       const res = await billsPayment.tvProviderPackages(provider);
 
-      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
       expect(res).toEqual(expectedResponse);
     });
   });
@@ -203,7 +215,8 @@ describe("BillsPayment", () => {
           provider,
           number,
         },
-        secret_key
+        config.secret_key,
+        config.signature
       );
       expect(res).toEqual(expectedResponse);
     });
@@ -236,7 +249,8 @@ describe("BillsPayment", () => {
           code: plan_id,
           reference,
         },
-        secret_key
+        config.secret_key,
+        config.signature
       );
       expect(res).toEqual(expectedResponse);
     });
@@ -308,7 +322,7 @@ describe("BillsPayment", () => {
 
       const res = await billsPayment.electricityProviders();
 
-      expect(apiGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(apiGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
       expect(res).toEqual(expectedResponse);
     });
   });
@@ -348,7 +362,8 @@ describe("BillsPayment", () => {
           type,
           number,
         },
-        secret_key
+        config.secret_key,
+        config.signature
       );
       expect(res).toEqual(expectedResponse);
     });
@@ -383,7 +398,8 @@ describe("BillsPayment", () => {
           amount,
           reference,
         },
-        secret_key
+        config.secret_key,
+        config.signature
       );
       expect(res).toEqual(expectedResponse);
     });

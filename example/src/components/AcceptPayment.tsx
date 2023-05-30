@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import BudPay from "budpay-react";
 
 const AcceptPayment = () => {
-  const budPay = new BudPay("YOUR_SECRET_KEY");
+  const config = {
+    secret_key: "sk_test_3xd7ybrhumna6sn9kumn3eqljal6lghshb3uiu9",
+    signature: "signature from config",
+  };
+  const budPay = new BudPay(config);
 
   const { acceptPayment } = budPay;
 

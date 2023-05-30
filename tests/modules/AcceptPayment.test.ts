@@ -2,18 +2,21 @@ import AcceptPayment from "../../src/modules/AcceptPayment";
 import apiGetRequest from "../../src/utils/apiGetRequest";
 import apiSendRequest from "../../src/utils/apiSendRequest";
 
-jest.mock("../src/utils/apiGetRequest");
-jest.mock("../src/utils/apiSendRequest");
+jest.mock("../../src/utils/apiGetRequest");
+jest.mock("../../src/utils/apiSendRequest");
 
 describe("AcceptPayment", () => {
   let acceptPayment: AcceptPayment;
   const mockSendRequest = apiSendRequest as jest.Mock;
   const mockGetRequest = apiGetRequest as jest.Mock;
 
-  const secret_key = "example-secret-key";
+  const config = {
+    secret_key: "your-secret-key",
+    signature: "your-HMAC-Signature",
+  };
 
   beforeEach(() => {
-    acceptPayment = new AcceptPayment(secret_key);
+    acceptPayment = new AcceptPayment(config);
     mockSendRequest.mockClear();
     mockGetRequest.mockClear();
   });
@@ -53,7 +56,8 @@ describe("AcceptPayment", () => {
       expect(mockSendRequest).toHaveBeenCalledWith(
         endpoint,
         data,
-        secret_key,
+        config.secret_key,
+        config.signature,
         undefined
       );
     });
@@ -109,7 +113,8 @@ describe("AcceptPayment", () => {
       expect(mockSendRequest).toHaveBeenCalledWith(
         endpoint,
         data,
-        secret_key,
+        config.secret_key,
+        config.signature,
         url_link
       );
     });
@@ -153,7 +158,8 @@ describe("AcceptPayment", () => {
           reference,
           name,
         },
-        secret_key,
+        config.secret_key,
+        config.signature,
         "https://api.budpay.com/api/s2s/"
       );
     });
@@ -203,7 +209,8 @@ describe("AcceptPayment", () => {
       expect(mockSendRequest).toHaveBeenCalledWith(
         endpoint,
         data,
-        secret_key,
+        config.secret_key,
+        config.signature,
         url_link
       );
     });
@@ -218,7 +225,7 @@ describe("AcceptPayment", () => {
       const result = await acceptPayment.verifyTransaction(reference);
 
       expect(result).toHaveProperty("status", true);
-      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
     });
   });
 
@@ -231,7 +238,7 @@ describe("AcceptPayment", () => {
       const result = await acceptPayment.fetchTransaction(id);
 
       expect(result).toHaveProperty("status", true);
-      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
     });
   });
 
@@ -244,7 +251,7 @@ describe("AcceptPayment", () => {
       const result = await acceptPayment.queryTransaction(search);
 
       expect(result).toHaveProperty("status", true);
-      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
     });
   });
 
@@ -256,7 +263,7 @@ describe("AcceptPayment", () => {
       const result = await acceptPayment.fetchAllTransactions();
 
       expect(result).toHaveProperty("status", true);
-      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, secret_key);
+      expect(mockGetRequest).toHaveBeenCalledWith(endpoint, config.secret_key);
     });
   });
 });

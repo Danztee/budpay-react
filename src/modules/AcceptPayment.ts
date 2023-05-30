@@ -3,9 +3,11 @@ import apiSendRequest from "../utils/apiSendRequest";
 
 class AcceptPayment {
   #secret_key: string;
+  #signature: string;
 
-  constructor(secret_key: string) {
-    this.#secret_key = secret_key;
+  constructor(config: Config) {
+    this.#secret_key = config.secret_key;
+    this.#signature = config.signature;
   }
 
   #sendRequest = async (
@@ -13,7 +15,13 @@ class AcceptPayment {
     data: object | string,
     url_link?: string
   ) => {
-    return await apiSendRequest(endpoint, data, this.#secret_key, url_link);
+    return await apiSendRequest(
+      endpoint,
+      data,
+      this.#secret_key,
+      this.#signature,
+      url_link
+    );
   };
 
   #sendGetRequest = async (endpoint: string) => {

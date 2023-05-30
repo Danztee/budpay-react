@@ -33,7 +33,12 @@ import { useEffect } from "react";
 import BudPay from "budpay-react";
 
 const App = () => {
-  const budPay = new BudPay("YOUR_SECRET_KEY");
+  const config = {
+    secret_key: "your-secret-key",
+    signature: "your-HMAC-Signature",
+  };
+
+  const budPay = new BudPay(config);
 
   const { acceptPayment } = budPay;
 
@@ -112,7 +117,12 @@ import { useState } from "react";
 import BudPay from "budpay-react";
 
 const App = () => {
-  const budPay = new BudPay("YOUR_SECRET_KEY");
+  const config = {
+    secret_key: "your-secret-key",
+    signature: "your-HMAC-Signature",
+  };
+
+  const budPay = new BudPay(config);
 
   const { paymentFeatures } = budPay;
 
@@ -190,7 +200,13 @@ import { useState } from "react";
 import BudPay from "./BudPay";
 
 const App = () => {
-  const budPay = new BudPay("YOUR_SECRET_KEY");
+  const config = {
+    secret_key: "your-secret-key",
+    signature: "your-HMAC-Signature",
+  };
+
+  const budPay = new BudPay(config);
+
   const { payouts } = budPay;
 
   const [currency, setCurrency] = useState("");
@@ -398,7 +414,12 @@ import { useState } from "react";
 import BudPay from "budpay-react";
 
 const App = () => {
-  const budPay = new BudPay("YOUR_SECRET_KEY");
+  const config = {
+    secret_key: "your-secret-key",
+    signature: "your-HMAC-Signature",
+  };
+
+  const budPay = new BudPay(config);
 
   const { billsPayment } = budPay;
 
