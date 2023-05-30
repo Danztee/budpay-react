@@ -1,6 +1,6 @@
-import AcceptPayment from "../src/modules/AcceptPayment";
-import apiGetRequest from "../src/utils/apiGetRequest";
-import apiSendRequest from "../src/utils/apiSendRequest";
+import AcceptPayment from "../../src/modules/AcceptPayment";
+import apiGetRequest from "../../src/utils/apiGetRequest";
+import apiSendRequest from "../../src/utils/apiSendRequest";
 
 jest.mock("../src/utils/apiGetRequest");
 jest.mock("../src/utils/apiSendRequest");
