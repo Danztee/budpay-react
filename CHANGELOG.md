@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.3] - 2023-05-30
+
+### Added
+
+- added easier data passing to the library.
+
 ## [0.1.2] - 2023-05-30
 
 ### Added
