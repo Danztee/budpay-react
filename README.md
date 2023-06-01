@@ -43,14 +43,13 @@ const App = () => {
   const { acceptPayment } = budPay;
 
   const checkout = async () => {
+    const payload = {
+      email: "daniel@gmail.com",
+      amount: "25000",
+      callback: "yourcallbackurl",
+    };
     try {
-      const res = await acceptPayment.standardCheckout(
-        "daniel@gmail.com",
-        "25000",
-        undefined,
-        undefined,
-        "callback_url"
-      );
+      const res = await acceptPayment.standardCheckout(payload);
       console.log(res);
 
       window.open(res.data.authorization_url, "_blank");
@@ -131,14 +130,15 @@ const App = () => {
 
   const createPayment = async () => {
     setLoading(true);
+    const data = {
+      amount: "2500",
+      currency: "NGN",
+      name: "Name",
+      description: "my description",
+      redirect: "https://your_redirect_link",
+    };
     try {
-      const res = await paymentFeatures.createPaymentLink(
-        "2500",
-        "NGN",
-        "Daniel",
-        "my description",
-        "https://your_redirect_link"
-      );
+      const res = await paymentFeatures.createPaymentLink(data);
       setLink(res.data.payment_link);
       console.log(res);
     } catch (error) {
@@ -228,16 +228,17 @@ const App = () => {
     try {
       setLoading(true);
 
-      const response = await payouts.singlePayout(
+      const data = {
         currency,
         amount,
-        bankCode,
-        bankName,
-        accountNumber,
+        bank_code: bankCode,
+        bank_name: bankName,
+        account_number: accountNumber,
         narration,
-        paymentMode
+        paymentMode,
         // reference
-      );
+      };
+      const response = await payouts.singlePayout(data);
 
       console.log(response);
       // Process the response or update state as needed
@@ -444,19 +445,14 @@ const App = () => {
     event.preventDefault();
     setLoading(true);
 
-    const randomNumber = Math.floor(
-      100000000000000 + Math.random() * 900000000000000
-    );
-    const reference = String(randomNumber);
-
     try {
-      const response = await billsPayment.airtimeTopUp(
+      const data = {
         provider,
         number,
         amount,
-        reference
-      );
-
+        reference: "2459392959593939",
+      };
+      const response = await billsPayment.airtimeTopUp(data);
       console.log(response);
     } catch (error) {
       console.error(error);
